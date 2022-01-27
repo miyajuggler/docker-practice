@@ -352,6 +352,6 @@ a8b945e8636c: Pushed
 latest: digest: sha256:2fd8145d2109ec26f715e7166d855609b43ce399b55286d7fd8b0ea723847c45 size: 736
 ```
 
-image レイヤーのあたらしいものだけ push されている。
-Mounted となってるのは使い回しというかそういうものというか。
+image レイヤーのあたらしいものだけ push されている。  
+Mounted となってるのは使い回しというかそういうものというか。  
 dockerhub にある ubuntu の image を共有している。
