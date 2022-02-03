@@ -1,3 +1,5 @@
+# 04
+
 ## `dockerhub` から image を pull
 
 ### コマンド
@@ -56,9 +58,9 @@ hello-world     latest      18e5af790473   3 months ago    9.14kB
 
 まとめると、今回は `library/hello-world` というリポジトリから `latest` というタグの image をとってきた
 
-https://hub.docker.com/u/library
+[dockerhub-library](https://hub.docker.com/u/library)
 
-https://hub.docker.com/_/hello-world
+[hello-world](https://hub.docker.com/_/hello-world)
 
 ## image からコンテナ作成
 
@@ -158,7 +160,7 @@ root@f670ad3a6d8b:/#
 プロンプトを見ると `root@f670ad3a6d8b:/#` このようになっており、コンテナ ID が付いている。
 ちなみに root はルートユーザーのこと
 
-確認
+### 確認
 
 ```
 root@f670ad3a6d8b:/# pwd
