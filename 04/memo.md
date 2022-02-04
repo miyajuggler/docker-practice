@@ -109,29 +109,21 @@ For more examples and ideas, visit:
 
 ### 確認
 
-`docker ps` だと稼働中のコンテナを全件取得してくる。
-
+`docker ps` だと稼働中のコンテナを全件取得してくる。  
 `docker ps -a` だと終了したコンテナも含めて全件取得してくる。
 
 もしローカル環境にたくさんのコンテナがある場合は、以下のようなコマンドでフィルタリングする。
 
 ```
 $ docker ps -a -f "ancestor=hello-world"
-CONTAINER ID  IMAGE        COMMAND   CREATED         STATUS                     PORTS     NAMES
+CONTAINER ID  IMAGE        COMMAND   CREATED         STATUS  PORTS     NAMES
 dff3f6a0f582  hello-world  "/hello"  12 minutes ago  Exited (0) 12 minutes ago            friendly_wright
 ```
 
-`hello-world` にはテキストを出力するプログラムが入ってるらしい。
-
+`hello-world` にはテキストを出力するプログラムが入ってるらしい。  
 `docker run` をすることで `hello-world` の image からコンテナが作られて、テキスト出力が実行されて、exit した感じ。
 
 ## `ubuntu` の image を run する
-
-### コマンド
-
-```
-$ docker run -it ubuntu bash
-```
 
 ### `docker run -it ubuntu bash` 実行
 
@@ -139,8 +131,7 @@ $ docker run -it ubuntu bash
 $ docker run -it ubuntu bash
 ```
 
-`bash` をつけることで、コンテナ起動時の実行プログラムを指定することができる。
-
+`bash` をつけることで、コンテナ起動時の実行プログラムを指定することができる。  
 ということでコマンドを打って実行してみる。
 
 ローカルに run したい image がない場合、勝手に pull してくれる。
@@ -178,7 +169,8 @@ root@f670ad3a6d8b:/# ls
 bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 ```
 
-このようにコンテナ内にあるフォルダが見て取れる。ホストにはないフォルダだらけなので間違いなくコンテナの中にいることがわかる。
+このようにコンテナ内にあるフォルダが見て取れる。  
+ホストにはないフォルダだらけなので間違いなくコンテナの中にいることがわかる。
 
 ホストとコンテナどちらにいるのかを意識すること
 
@@ -211,7 +203,7 @@ Exited になっている
 
 ```
 $ docker ps -a
-CONTAINER ID   IMAGE    COMMAND   CREATED             STATUS                      PORTS   NAMES
+CONTAINER ID   IMAGE    COMMAND   CREATED             STATUS   PORTS   NAMES
 f670ad3a6d8b   ubuntu   "bash"    About an hour ago   Exited (0) 25 minutes ago           ecstatic_morse
 ```
 
@@ -219,7 +211,7 @@ f670ad3a6d8b   ubuntu   "bash"    About an hour ago   Exited (0) 25 minutes ago 
 
 ### コマンド
 
-```
+```sh
 $ docker exec -it <container> bash
 $ docker attach <container>
   ctrl+p+q
@@ -227,11 +219,11 @@ $ docker attach <container>
 
 ```
 docker ps -a
-CONTAINER ID   IMAGE     COMMAND    CREATED         STATUS                    PORTS   NAMES
+CONTAINER ID   IMAGE     COMMAND    CREATED         STATUS PORTS   NAMES
 f670ad3a6d8b   ubuntu    "bash"     24 hours ago    Exited (0) 23 hours ago           ecstatic_morse
 ```
 
-```
+```sh
 $ docker start f670ad3a6d8b
 f670ad3a6d8b
 
@@ -240,13 +232,13 @@ CONTAINER ID   IMAGE      COMMAND   CREATED        STATUS       PORTS    NAMES
 f670ad3a6d8b   ubuntu     "bash"    24 hours ago   Up 3 seconds          ecstatic_morse
 ```
 
-```
+```sh
+# image を取得してきて中に入るコマンド
 $ docker run -it <image> bash
+
+# すでにあるコンテナの中に入るコマンド
 $ docker exec -it <container> bash
 ```
-
-image を取得してきて中に入るコマンド
-すでにあるコンテナの中に入るコマンド
 
 ```
 $ docker exec -it f670ad3a6d8b bash
@@ -274,7 +266,7 @@ docker attach f670ad3a6d8b
 root@f670ad3a6d8b:/#
 ```
 
-基本は exit が基本みたい。なにかプロセスを残したままコンテナから出たい場合のみ dettach を使う。
+基本は exit が基本みたい。なにかプロセスを残したままコンテナから出たい場合のみ dettach を使う。  
 「attach 後に exit するとコンテナは停止する」「exec では exit しても停止しない」
 
 ## commit して更新内容を image にする
@@ -357,3 +349,58 @@ latest: digest: sha256:2fd8145d2109ec26f715e7166d855609b43ce399b55286d7fd8b0ea72
 image レイヤーのあたらしいものだけ push されている。  
 Mounted となってるのは使い回しというかそういうものというか。  
 dockerhub にある ubuntu の image を共有している。
+
+|![](image/docker-push.png)
+|:-:|
+
+|![](image/check-my-repo.png)
+|:-:|
+
+## dockerhub から push した docker image を pull してみる
+
+### コマンド
+
+```sh
+$ docker rmi <image>
+
+$ docker pull <image>
+
+$ docker run -it <image> bash
+```
+
+まずは対象の image を削除 （あると pull がうまくいかない）
+
+```sh
+$ docker rmi miyajuggler/test
+Untagged: miyajuggler/test:latest
+Untagged: miyajuggler/test@sha256:2fd8145d2109ec26f715e7166d855609b43ce399b55286d7fd8b0ea723847c45
+```
+
+`docker images` で確認すると、たしかに `miyajuggler/test` の image はなくなっている。
+
+次に dockerhub にある対象の image を pull してくる。
+
+```
+$ docker pull miyajuggler/test
+Using default tag: latest
+latest: Pulling from miyajuggler/test
+Digest: sha256:2fd8145d2109ec26f715e7166d855609b43ce399b55286d7fd8b0ea723847c45
+Status: Downloaded newer image for miyajuggler/test:latest
+docker.io/miyajuggler/test:latest
+```
+
+確認すると `miyajuggler/test` の image がある。ちなみに image ID も変わってないことが確認できる。
+
+```
+docker images
+REPOSITORY         TAG         IMAGE ID       CREATED       SIZE
+miyajuggler/test   latest      fc639a90e9ee   2 weeks ago   65.6MB
+```
+
+コンテナを立てて、その中に入ってみると test というフォルダが有ることがわかる。
+
+```
+docker run -it miyajuggler/test bash
+root@2e7229b46373:/# ls
+bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  test  tmp  usr  var
+```
