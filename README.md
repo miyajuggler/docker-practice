@@ -42,6 +42,18 @@ organization や product とか範囲選択可能
 
   高リスクライセンスに関連するライブラリ、リスクの性質とスコア、推奨されるアクションの表示。
 
+## UI-ライブラリマッチタイプ
+
+https://whitesource.atlassian.net/wiki/spaces/WSK/pages/2357362810/UI+-+Library+Match+Types
+
+Exact Match（完全一致）
+
+Best (Effort) Match（ベスト（エフォート）一致）
+
+Filename Match（ファイル名の一致）
+
+Suspected Match（疑わしい一致）
+
 ## UI - Modified Date in Vulnerability-Based and Library-Based Alerting Mode
 
 https://whitesource.atlassian.net/wiki/spaces/WSK/pages/2352447695/UI+-+Modified+Date+in+Vulnerability-Based+and+Library-Based+Alerting+Mode
@@ -95,3 +107,20 @@ WhiteSource が 2 つのライセンス割り当てを検出する場合があ�
 ## licenses ダッシュボード
 
 https://whitesource.atlassian.net/wiki/spaces/WDJ/pages/2460188852/Licenses
+
+- Name：ライセンスの名前
+
+- Occurrences（発生数）：組織内の発生数
+
+- Copyright：著作権リスクの測定値である著作権リスクスコア。詳細については、「リスクスコアの帰属とライセンス分析について」の「ライセンスリスクスコア」を参照してください。
+
+- Patent：特許およびロイヤルティのリスクスコアの測定。
+
+| リスクスコア | 説明                                             | リスク |
+| ------------ | ------------------------------------------------ | ------ |
+| 20           | ロイヤリティフリーで、特定された特許リスクはなし | 低い   |
+| 40           | 訴訟がない限り、ロイヤリティフリー               | 低い   |
+| 60           | 特許は付与されていません                         | 中     |
+| 80           | 特定された特定の特許リスク                       | 高い   |
+
+**Royalty Free**：一部のライセンスは、明示的に特許ライセンスを付与します。ClearBSD など、明示的にしないものもあります。ユーザーが訴えられないことを条件にライセンスがあり、訴えられた場合はライセンスが取り消されます。
