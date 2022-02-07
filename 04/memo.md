@@ -273,6 +273,9 @@ root@f670ad3a6d8b:/#
 
 ### コマンド
 
+|![](image/conclusion.png)
+|:-:|
+
 ```
 docker commit <container> <new image>
 ```
@@ -403,4 +406,12 @@ miyajuggler/test   latest      fc639a90e9ee   2 weeks ago   65.6MB
 docker run -it miyajuggler/test bash
 root@2e7229b46373:/# ls
 bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  test  tmp  usr  var
+```
+
+docker image にはタグが付けられる（バージョンみたいなもの）
+
+## コマンドまとめ
+
+```
+
 ```
