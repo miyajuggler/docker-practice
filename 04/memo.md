@@ -273,9 +273,6 @@ root@f670ad3a6d8b:/#
 
 ### コマンド
 
-|![](image/conclusion.png)
-|:-:|
-
 ```
 docker commit <container> <new image>
 ```
@@ -411,6 +408,9 @@ bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys
 docker image にはタグが付けられる（バージョンみたいなもの）
 
 ## コマンドまとめ
+
+|![](image/conclusion.png)
+|:-:|
 
 ```
 
