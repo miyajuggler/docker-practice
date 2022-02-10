@@ -34,14 +34,18 @@ RUN touch test
 
 ## docker build
 
+`docker build` することで Dockerfile から image ができる。
+
 |![](image/dockerfile-create.png)
 |:-:|
+
+### コマンド
 
 ```sh
 # 基本的には Dockerfile のあるディレクトリに移動してから build する
 $ docker build <directory>
 
-# 名前をつけたいときはこれ
+# 名前をつけたいときは -t をつける
 $ docker build -t <name> <directory>
 ```
 
@@ -50,8 +54,10 @@ $ docker build -t <name> <directory>
 $ docker build .
 ```
 
+### 実行
+
 ```
-docker build .
+$ docker build .
 [+] Building 5.2s (7/7) FINISHED
  => [internal] load build definition from Dockerfile
  => => transferring dockerfile: 105B
@@ -74,6 +80,8 @@ docker build .
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 ```
 
+確認
+
 ```sh
 $ docker images
 REPOSITORY      TAG        IMAGE ID       CREATED         SIZE
@@ -84,6 +92,8 @@ $ docker images -f dangling=true
 REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 <none>       <none>    6264619f81c5   4 minutes ago   65.6MB
 ```
+
+タグを持たず、他のコンテナからも参照されないイメージ（dangling）
 
 ### 名前指定で build
 
@@ -106,6 +116,8 @@ $ docker build -t new-ubuntu:latest .
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 ```
 
+確認
+
 ```
 $ docker images
 REPOSITORY     TAG      IMAGE ID       CREATED         SIZE
@@ -113,6 +125,8 @@ new-ubuntu     latest   6264619f81c5   7 minutes ago   65.6MB
 ```
 
 ## docker image を run して確認してみる
+
+### 実行
 
 ```
 # new-ubuntu:latest, new-ubuntu, 6264619f81c5 のどれでもいい
