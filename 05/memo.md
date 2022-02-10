@@ -196,9 +196,11 @@ $ docker rm <container>
 # コンテナ停止
 $ docker stop <container>
 
-# コンテナ全削除(status が UP のもの以外を全削除)
+# イメージ、コンテナ、ネットワークを全削除(status が UP のもの以外を全削除)
 $ docker system prune
 ```
+
+https://docs.docker.jp/config/pruning.html
 
 ```
 $ docker system prune
@@ -210,6 +212,8 @@ WARNING! This will remove:
 
 Are you sure you want to continue? [y/N]
 ```
+
+タグ付けされていないイメージ（dangling）
 
 ## コンテナのファイルシステムの独立性
 
@@ -224,6 +228,8 @@ container1 からは container2 の test2 ファイルは見えないし、conta
 $ docker run --name <name> <image>
 ```
 
+### 名前をつけるパターン
+
 - 起動させ続けるコンテナを建てるとき
 - 共有サーバーを使うとき
 - 他のプログラムで使用するとき
@@ -235,7 +241,7 @@ $ docker run --name <name> <image>
 
 大きなサーバー使うとき（クラウドとかにあるやつ）は共有する事が多い。
 
-名前をつけてみる
+### 名前をつけてみる
 
 ```
 $ docker run --name sample ubuntu
@@ -266,14 +272,20 @@ See 'docker run --help'.
 
 ### detached mode
 
-`$ docker run -d <image>`  
+```
+$ docker run -d <image>
+```
+
 コンテナを起動後に detach してホストに戻る （バックグラウンドで動かしたいときに使う）
 
 ### foreground mode
 
 コンテナの中に入ったり、コンテナを作ってすぐ捨てたりするようなモード
 
-`$ docker run -rm <image>`  
+```
+$ docker run -rm <image>
+```
+
 コンテナを exit 後に削除する
 
 -d をつけてコンテナを起動してみる。  
