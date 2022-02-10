@@ -297,3 +297,8 @@ $ docker run --rm hello-world
 $ docker run -it --rm ubuntu bash
 # コンテナに入って exit 後にはコンテナは消えている
 ```
+
+## まとめ
+
+|![](image/conclusion.png)
+|:-:|
