@@ -1,4 +1,4 @@
-# 06
+# 06. Dockerfile を知る
 
 ## Dockerfile
 
@@ -36,7 +36,7 @@ RUN touch test
 
 `docker build` することで Dockerfile から image ができる。
 
-|![](image/dockerfile-create.png)
+|![](image/dockerbuild.png)
 |:-:|
 
 ### コマンド
@@ -127,6 +127,8 @@ new-ubuntu     latest   6264619f81c5   7 minutes ago   65.6MB
 ## docker image を run して確認してみる
 
 ### 実行
+
+test ファイルが有ることが確認
 
 ```
 # new-ubuntu:latest, new-ubuntu, 6264619f81c5 のどれでもいい
