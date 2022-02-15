@@ -223,5 +223,91 @@ CACHED という項目から、`RUN apt-get update` `RUN apt-get install -y curl
 
 # CMD
 
+|![](image/cmd2.png)
+|:-:|
+
 |![](image/cmd.png)
 |:-:|
+
+```Dockerfile
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y \
+    curl \
+    cvs \
+    nginx
+CMD [ "ls" ]
+
+```
+
+```sh
+$ docker build .
+[+] Building 1.0s (6/6) FINISHED
+ => [internal] load build definition from Dockerfile
+ => => transferring dockerfile: 146B
+ => [internal] load .dockerignore
+ => => transferring context: 2B
+ => [internal] load metadata for docker.io/library/ubuntu:latest
+ => [1/2] FROM docker.io/library/ubuntu:latest@sha256:669e010b58baf5beb2836b253c1fd5768333f0d1dbcb834f7c07a4dc93f474be
+ => CACHED [2/2] RUN apt-get update && apt-get install -y curl cvs nginx
+ => exporting to image
+ => => exporting layers
+ => => writing image sha256:34b5e45990c4120928a7fdcdfde3da6c5f4acc451a142bfbc5cb18c9aeecd9b1
+```
+
+```sh
+$ docker run 34b5e45990c4120928a7fdcdfde3da6c5f4acc451a142bfbc5cb18c9aeecd9b1
+bin
+boot
+dev
+etc
+home
+lib
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+```
+
+```Dockerfile
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y \
+    curl \
+    cvs \
+    nginx
+CMD [ "pwd" ]
+
+```
+
+```sh
+$ docker build .
+[+] Building 1.0s (6/6) FINISHED
+ => [internal] load build definition from Dockerfile
+ => => transferring dockerfile: 149B
+ => [internal] load .dockerignore
+ => => transferring context: 2B
+ => [internal] load metadata for docker.io/library/ubuntu:latest
+ => [1/2] FROM docker.io/library/ubuntu:latest@sha256:669e010b58baf5beb2836b253c1fd5768333f0d1dbcb834f7c07a4dc93f474be
+ => CACHED [2/2] RUN apt-get update && apt-get install -y curl cvs nginx
+ => exporting to image
+ => => exporting layers
+ => => writing image sha256:4a9f24a6ec72fcc4daf17f6f644a62c8a99072d96f3d207121851b86210ec63e
+```
+
+```sh
+$ docker run 4a9f24a6ec72fcc4daf17f6f644a62c8a99072d96f3d207121851b86210ec63e
+/
+```
+
+## RUN と CMD
+RUN はレイヤーを作る。 CMD はつくらない。
+
+iamge として保存しておきたい内容は RUN
+CMD は docker run するたびに走るコマンドを入れる。
