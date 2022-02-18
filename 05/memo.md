@@ -133,6 +133,15 @@ $ docker run ubuntu pwd
 /
 ```
 
+COMMAND を確認
+
+```sh
+$ docker ps -a
+CONTAINER ID   IMAGE    COMMAND  CREATED          STATUS      PORTS     NAMES
+833f8741d5c2   ubuntu   "pwd"    3 seconds ago    Exited (0) 2 seconds ago              quizzical_wiles
+848e1481fa47   ubuntu   "ls"     14 seconds ago   Exited (0) 12 seconds ago             happy_yonath
+```
+
 ## `-it` について
 
 正直覚えなくていい
@@ -255,9 +264,9 @@ CONTAINER ID   IMAGE    COMMAND  CREATED         STATUS                   PORTS 
 ```
 $ docker run ubuntu
 $ docker ps -a
-CONTAINER ID   IMAGE      COMMAND    CREATEDSTATUS                                   PORTS   NAMES
-4d76603a1c13   ubuntu     "bash"     2 seconds ago        Exited (0) 1 second ago            bold_chandrasekhar
-3bf64596c10d   ubuntu     "bash"     About a minute ago   Exited (0) About a minute ago      sample
+CONTAINER ID   IMAGE    COMMAND   CREATEDSTATUS                                       PORTS   NAMES
+4d76603a1c13   ubuntu   "bash"    2 seconds ago        Exited (0) 1 second ago                bold_chandrasekhar
+3bf64596c10d   ubuntu   "bash"    About a minute ago   Exited (0) About a minute ago          sample
 ```
 
 同じ名前のコンテナは作れない。
@@ -300,7 +309,8 @@ CONTAINER ID   IMAGE    COMMAND  CREATED          STATUS          PORTS     NAME
 e61f6b0aa8db   ubuntu   "bash"   8 seconds ago    Up 7 seconds              blissful_lamport
 ```
 
--rm をつけるとコンテナが exit 後に削除される。
+-rm をつけるとコンテナが exit 後に削除される。  
+※よく使う
 
 ```sh
 $ docker run --rm hello-world
