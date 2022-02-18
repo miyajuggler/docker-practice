@@ -370,6 +370,9 @@ FROM ubuntu:latest
 RUN mkdir sample && cd sample && touch test
 ```
 
+|![](image/workdir2.png)
+|:-:|
+
 WORKDIR を使った書き方。  
 WORKDIR <絶対 path> で絶対 path を指定してやるのが良い
 
