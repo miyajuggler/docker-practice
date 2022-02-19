@@ -30,7 +30,8 @@ Use 'docker scan' to run Snyk tests against images to find vulnerabilities and l
 
 ## RUN
 
-取ってきた image に対して、RUN でいろいろカスタマイズしていく感じ
+取ってきた image に対して、RUN でいろいろカスタマイズしていく。  
+RUN の後ろは linux コマンドが実行されていく。
 
 |![](image/run.png)
 |:-:|
@@ -62,7 +63,8 @@ $ docker build .
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 ```
 
-RUN のひとつひとつに対して image レイヤーが作られている。
+docker build のログを見ると RUN のひとつひとつに対して image レイヤーが作られている。  
+下記の図のような image を持つとわかりやすい。
 
 |![](image/layer.png)
 |:-:|
@@ -77,10 +79,13 @@ root@07a54d583cc2:/# cat test
 hello world
 ```
 
+test フォルダの中に hello world が書き込まれているのがわかる。
+
 RUN でやりたいことというのを記述していく。  
 しかしそうするとレイヤーがたくさん作られてしまい、image が重くなってしまう。
 
-そのためなるべく最小数にするために工夫が必要である。それについては以下から記載。
+そのためなるべく最小数にするために工夫が必要である。  
+それについては以下から記載。
 
 ## layer 数を最小にするために
 
@@ -93,6 +98,8 @@ ubuntu で package をダウンロードするには apt-get (apt) を使う
 
 |![](image/run3.png)
 |:-:|
+
+上記画像のように、基本的に && や \ を用いてなるべく RUN コマンドを少なくするように書くべき。
 
 ## cache
 
@@ -128,7 +135,7 @@ $ docker build .
  => => writing image sha256:f00e33800f93080aeb94785ed077c3e843142050404cca39f26ecc6a16bdbbb5
 ```
 
-変更を加える。
+なにかまた別の package は必要になったとして、Dockerfile に変更を加えたとする。
 
 ```Dockerfile
 FROM ubuntu:latest
@@ -138,7 +145,7 @@ RUN apt-get update && apt-get install -y \
     nginx
 ```
 
-実行すると、またイチからアップデートとインストールしちゃう。
+実行すると、またイチからアップデートとインストールしちゃう。。。
 
 ```sh
 $ docker build .
@@ -170,12 +177,13 @@ RUN apt-get install -y \
 RUN apt-get install -y cvs
 ```
 
-こんな感じでやれば、アップデートと curl と nginx のインストールは済んでいるためキャッシュを使えるので時短になる。
+こんな感じですでに行われたコマンドを残すように書いていく。  
+そうするとアップデートと curl と nginx のインストールはすでに過去に行ったため、cashe を使えるので時短になる。
 
-Dockerfile を構築していくときには cache を用いて時短を行いたいため RUN を複数行で書く。
-最終的に完成することがわかったあとに 130 行目のような形（layer が最小数になるような書き方）にもっていくのが良い。
+Dockerfile を構築していくときには cache を用いて時短を行いたいため RUN を複数行で書く。  
+最終的に完成することがわかったあとに 140 行目のような形（layer が最小数になるような書き方）にもっていくのが良い。
 
-### 実践 2
+### 実践 2(cache を使うようにして docker build)
 
 この形で docker build してから
 
@@ -223,11 +231,15 @@ CACHED という項目から、`RUN apt-get update` `RUN apt-get install -y curl
 
 # CMD
 
+コマンドの上書きができる。
+
 |![](image/cmd2.png)
 |:-:|
 
 |![](image/cmd.png)
 |:-:|
+
+Dockerfile
 
 ```Dockerfile
 FROM ubuntu:latest
@@ -236,8 +248,9 @@ RUN apt-get update && apt-get install -y \
     cvs \
     nginx
 CMD [ "ls" ]
-
 ```
+
+docker build
 
 ```sh
 $ docker build .
@@ -253,6 +266,8 @@ $ docker build .
  => => exporting layers
  => => writing image sha256:34b5e45990c4120928a7fdcdfde3da6c5f4acc451a142bfbc5cb18c9aeecd9b1
 ```
+
+docker run
 
 ```sh
 $ docker run 34b5e45990c4120928a7fdcdfde3da6c5f4acc451a142bfbc5cb18c9aeecd9b1
@@ -283,8 +298,9 @@ RUN apt-get update && apt-get install -y \
     cvs \
     nginx
 CMD [ "pwd" ]
-
 ```
+
+docker build
 
 ```sh
 $ docker build .
@@ -301,13 +317,16 @@ $ docker build .
  => => writing image sha256:4a9f24a6ec72fcc4daf17f6f644a62c8a99072d96f3d207121851b86210ec63e
 ```
 
+docker run
+
 ```sh
 $ docker run 4a9f24a6ec72fcc4daf17f6f644a62c8a99072d96f3d207121851b86210ec63e
 /
 ```
 
 ## RUN と CMD
+
 RUN はレイヤーを作る。 CMD はつくらない。
 
-iamge として保存しておきたい内容は RUN
+iamge として保存しておきたい内容は RUN  
 CMD は docker run するたびに走るコマンドを入れる。
