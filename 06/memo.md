@@ -126,9 +126,7 @@ new-ubuntu     latest   6264619f81c5   7 minutes ago   65.6MB
 
 ## docker image を run して確認してみる
 
-### 実行
-
-test ファイルが有ることが確認
+実行
 
 ```
 # new-ubuntu:latest, new-ubuntu, 6264619f81c5 のどれでもいい
@@ -136,6 +134,8 @@ $ docker run -it new-ubuntu:latest bash
 root@61d0d0286120:/# ls
 bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  test  tmp  usr  var
 ```
+
+test ファイルが有ることが確認
 
 |![](image/docker.png)
 |:-:|
