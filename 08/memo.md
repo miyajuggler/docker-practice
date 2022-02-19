@@ -30,7 +30,7 @@ COPY <src> <dest>
 /new_dir というディレクトリを作り、そこにホストにある something というファイルを image の中に持っていきたい。
 
 Dockerfile 例  
-どうやら `/new_dir` でも `new_dir` でもいけるみたい
+どうやら `/new_dir` でも `new_dir` でもいけるみたいだが、絶対パスの書き方のほうが良さげらしい。
 
 ```Dockerfile
 FROM ubuntu:latest
@@ -257,6 +257,8 @@ lrwxrwxrwx   1 root root    7 Jan 13 16:59 lib -> usr/lib
 
 ...
 ```
+
+CMD の部分だけ上書きされているのがわかる。
 
 ### ENV
 
