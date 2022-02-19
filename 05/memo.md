@@ -4,7 +4,9 @@
 
 ### run = create + start という認識
 
-### もう一度、`docker run` が何をやっているのかを確認
+### もう一度、docker run が何をやっているのかを確認
+
+docker run 実行
 
 ```
 $ docker run hello-world
@@ -15,13 +17,15 @@ This message shows...
 
 このコマンドで、hello-world の image からコンテナを立てて、デフォルトコマンドを出力した。
 
+コンテナ確認
+
 ```
 $ docker ps -a
 CONTAINER ID   IMAGE          COMMAND    CREATED          STATUS      PORTS   NAMES
 11ae01faec57   hello-world    "/hello"   2 minutes ago    Exited (0) 2 minutes ago           dreamy_antonelli
 ```
 
-status は exit
+status は exit になっている
 
 ### docker create <image> を確認
 
@@ -48,7 +52,7 @@ af909cd13b35   hello-world    "/hello"  4 minutes ago    Exited (0) 1 second ago
 ```
 
 裏では status は up になってからデフォルトコマンドが実行されて exit になった。
-デフォルトコマンドの出力結果を見るためには `-a` のオプションが必要。(業務ではこんなコマンド使わない)
+デフォルトコマンドの出力結果を見るためには -a のオプションが必要。(業務ではこんなコマンド使わない)
 
 ```
 $ docker start af909cd13b35 -a
@@ -57,7 +61,7 @@ Hello from Docker!
 This message shows...
 ```
 
-ちなみに `COMMAND` がデフォルトのコマンド
+ちなみに `docker ps -a` のコマンドで見られる COMMAND がデフォルトのコマンド
 これは上書きできる。
 
 ただ、hello-world の image には Ubuntu とか入ってないので bash とかは使えない。
@@ -90,7 +94,7 @@ CONTAINER ID   IMAGE       COMMAND     CREATED          STATUS                  
 b03201962bdb   ubuntu      "bash"      40 seconds ago   Exited (0) 39 seconds           agobeautiful_solomon
 ```
 
-`docker run` により、image からコンテナが create され、そのコンテナを start して、勝手に exit した
+docker run により、image からコンテナが create され、そのコンテナを start して、勝手に exit した
 実は `-it` のオプションにより、bash を実行した状態のままにできる。
 
 コンテナの中でコマンドを実行した出力結果を確認してみる。
@@ -211,7 +215,7 @@ $ docker system prune
 
 https://docs.docker.jp/config/pruning.html
 
-```
+```sh
 $ docker system prune
 WARNING! This will remove:
   - all stopped containers
@@ -220,6 +224,7 @@ WARNING! This will remove:
   - all dangling build cache
 
 Are you sure you want to continue? [y/N]
+# y を押すとコマンドが実行される
 ```
 
 タグ付けされていないイメージ（dangling）
@@ -269,7 +274,7 @@ CONTAINER ID   IMAGE    COMMAND   CREATEDSTATUS                                 
 3bf64596c10d   ubuntu   "bash"    About a minute ago   Exited (0) About a minute ago          sample
 ```
 
-同じ名前のコンテナは作れない。
+ちなみに同じ名前のコンテナは作れない。
 
 ```
 $ docker run --name sample ubuntu
