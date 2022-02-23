@@ -72,6 +72,11 @@ root@95fbee585006:/# cat new_dummy/sample
 testtest
 ```
 
+### -v オプションと COPY インストラクションについて
+
+両方ともホストとコンテナでファイルを共有するための操作であり似ている。  
+違いとして、実際にコンテナの中にファイルを渡すか渡さないかの違い、という認識。
+
 ## -u オプションでホストとコンテナのアクセス権限を共有する
 
 |![](image/u.png)
@@ -212,11 +217,14 @@ cpu とメモリを指定して docker run
 $ docker run -it --rm --cpus 4 --memory 2g ubuntu bash
 ```
 
+確認
+
 ```sh
 docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS         PORTS    NAMES
 6d230b0dc61e   ubuntu    "bash"    11 seconds ago   Up 9 seconds            sweet_wilson
 
+# コンテナの詳細を表示
 $ docker inspect 6d230b0dc61e
 
 # cpu を絞ってみる
@@ -241,7 +249,6 @@ $ docker inspect 6d230b0dc61e | grep -i memory
             "MemorySwap": 4294967296,
             "MemorySwappiness": null,
 ```
-
 
 ## まとめ
 
