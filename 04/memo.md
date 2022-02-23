@@ -407,11 +407,7 @@ bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys
 
 docker image にはタグが付けられる（バージョンみたいなもの）
 
-## コマンドまとめ
+## まとめ
 
 |![](image/conclusion.png)
 |:-:|
-
-```
-
-```

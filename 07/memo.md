@@ -330,3 +330,8 @@ RUN はレイヤーを作る。 CMD はつくらない。
 
 iamge として保存しておきたい内容は RUN  
 CMD は docker run するたびに走るコマンドを入れる。
+
+## まとめ
+
+|![](image/matome.png)
+|:-:|

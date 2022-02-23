@@ -141,3 +141,8 @@ test ファイルが有ることが確認
 |:-:|
 
 一般的に、コンテナから commit して image を調整するのと同時に Dockerfile もメンテしていく。
+
+## まとめ
+
+|![](image/matome.png)
+|:-:|

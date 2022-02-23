@@ -162,11 +162,13 @@ sample  test
 
 ※今回は外部の PC から Host につなげるのではなく、自分の PC からつなげていることに注意
 
+サーバーに複数の web サービスが有る場合、どのサービスにアクセスするか、ということのためにポートが必要
+
 IP:住所  
 port:部屋番号  
 みたいな
 
-host のポートからコンテナのポートにつなげるために -p が必要
+コンテナに web サービスを立てた場合、host のポートからコンテナのポートにつなげるために -p が必要
 
 ```
 $ docker run -it -p 8888:8888 --rm jupyter/datascience-notebook bash
@@ -184,4 +186,64 @@ docker run -it -p 1234:8888 --rm jupyter/datascience-notebook bash
 localhost:1234
 
 |![](image/p2.png)
+|:-:|
+
+## コンテナで使えるコンピュータリソースの上限を設定する
+
+|![](image/resource.png)
+|:-:|
+
+OOM やメモリリークを防ぐ
+
+自分の PC の CPU、メモリを確認
+
+```sh
+$ sysctl -n hw.physicalcpu_max
+8
+$ sysctl -n hw.logicalcpu_max
+8
+$ sysctl hw.memsize
+hw.memsize: 8589934592
+```
+
+cpu とメモリを指定して docker run
+
+```sh
+$ docker run -it --rm --cpus 4 --memory 2g ubuntu bash
+```
+
+```sh
+docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS         PORTS    NAMES
+6d230b0dc61e   ubuntu    "bash"    11 seconds ago   Up 9 seconds            sweet_wilson
+
+$ docker inspect 6d230b0dc61e
+
+# cpu を絞ってみる
+$ docker inspect 6d230b0dc61e | grep -i cpu
+            "CpuShares": 0,
+            "NanoCpus": 4000000000,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "CpuCount": 0,
+            "CpuPercent": 0,
+
+# memory を絞って見る
+$ docker inspect 6d230b0dc61e | grep -i memory
+            "Memory": 2147483648,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 4294967296,
+            "MemorySwappiness": null,
+```
+
+
+## まとめ
+
+|![](image/matome.png)
 |:-:|
