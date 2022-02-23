@@ -236,8 +236,8 @@ Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
 
 Mandatory arguments to long options are mandatory for short options too.
   -a, --all                  do not ignore entries starting with .
-
-  ...
+  :
+  :
 ```
 
 コマンドの上書き
@@ -254,8 +254,8 @@ drwxr-xr-x   5 root root  340 Feb 18 11:36 dev
 drwxr-xr-x   1 root root 4096 Feb 18 11:36 etc
 drwxr-xr-x   2 root root 4096 Apr 15  2020 home
 lrwxrwxrwx   1 root root    7 Jan 13 16:59 lib -> usr/lib
-
-...
+:
+:
 ```
 
 CMD の部分だけ上書きされているのがわかる。
