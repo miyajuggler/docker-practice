@@ -49,6 +49,8 @@ $ docker build <directory>
 $ docker build -t <name> <directory>
 ```
 
+`<name>` は `イメージの名前:タグ` にすることが多い
+
 ```sh
 # docker フォルダに移動してから
 $ docker build .
